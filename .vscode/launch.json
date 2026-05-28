@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Backend (Go)",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/backend/cmd/api/main.go",
+      "cwd": "${workspaceFolder}/backend",
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_PORT": "5432",
+        "DB_USER": "postgres",
+        "DB_PASSWORD": "postgres",
+        "DB_NAME": "hostel_saas",
+        "REDIS_HOST": "localhost",
+        "REDIS_PORT": "6379",
+        "JWT_SECRET": "super_secret_key_for_jwt_auth_12345",
+        "PORT": "8080"
+      },
+      "preLaunchTask": "Start Infrastructure (DB & Redis)"
+    },
+    {
+      "name": "Launch Frontend (Next.js)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "console": "integratedTerminal",
+      "preLaunchTask": "npm install frontend"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Run All (Backend + Frontend)",
+      "configurations": ["Launch Backend (Go)", "Launch Frontend (Next.js)"]
+    }
+  ]
+}
